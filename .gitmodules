@@ -1,0 +1,3 @@
+[submodule "shell-script-template"]
+	path = shell-script-template
+	url = https://github.com/RenatGilmanov/shell-script-template.git
