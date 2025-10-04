@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+echo "Welcome to the Gallium Setup Script!"
+echo "If you have any issues with install please contact "
+echo "Hayden or Daniel for assistance, Thanks!"
+echo "---------------------------------------------------"
+
 # Check Wi-Fi connection status
 if nmcli -t -f WIFI g | grep -q "enabled"; then
     if ! (nmcli -t -f ACTIVE,SSID dev wifi | grep -q "^yes"); then
