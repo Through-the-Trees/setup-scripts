@@ -1,4 +1,4 @@
-#! usr/bin/env bash
+#! /usr/bin/env bash
 
 # Display CPU Model (SKU)
 echo "CPU SKU / Model:"

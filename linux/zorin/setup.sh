@@ -1,4 +1,4 @@
-#! usr/bin/env bash
+#! /usr/bin/env bash
 
 # Check Wi-Fi connection status
 if nmcli -t -f WIFI g | grep -q "enabled"; then
