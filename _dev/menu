@@ -1,0 +1,9 @@
+# Menu for TtT Refurbisher interface
+# Each line is a path to a script followed by a script alias 
+# that will be presented to the user
+
+linux/get-serial-number.sh "" "get serial number"
+linux/gallium/setup.sh "" "setup"
+linux/zorin/setup.sh "" "setup"
+
+windows/Windows_Rename_Device.bat
