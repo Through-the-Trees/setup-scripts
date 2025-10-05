@@ -4,13 +4,13 @@ from argparse import ArgumentParser
 from http.client import HTTPResponse
 from urllib.request import urlopen
 
-REPO_URL = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/"
+REPO_URL = "raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads"
 
-def get_scripts(distro: str|None) -> list[str]:
-    resp: HTTPResponse = urlopen(f"{REPO_URL}/{distro}/_list")
+def get_scripts(branch: str, platform: str) -> list[str]:
+    resp: HTTPResponse = urlopen(f"https://{REPO_URL}/{branch}/{platform}/_list")
     if resp.status == 404:
         return []
-    return [str(line).strip() for line in resp.readlines()]
+    return [script.decode('utf-8').strip() for script in resp.readlines()]
 
 def get_parser() -> ArgumentParser:
     parser = ArgumentParser('Refurbiser Tools')
@@ -23,9 +23,8 @@ def get_parser() -> ArgumentParser:
         type=str,
     )
     parser.add_argument(
-        '-d', '--distro',
-        help='Distribution `list` will list available distros',
-        default='list',
+        '-p', '--platform',
+        help='Platform to get scripts for (linux|windows|macos)',
         metavar='',
         type=str,
     )
@@ -41,11 +40,11 @@ def get_parser() -> ArgumentParser:
 def main() -> None:
     args = get_parser().parse_args()
     branch: str = args.branch
-    distro: str = args.distro
+    platform: str = args.platform
     script: str = args.script
 
     if script == 'list':
-        print(get_scripts(branch, distro))
+        print(get_scripts(branch, platform))
         return
     
 
