@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sudo apt update && apt upgrade && apt autoremove
-sudo apt install curl
 sudo apt install git-all
 
 cd ~
