@@ -16,7 +16,4 @@ mkdir -p "$CONFIG_PATH"
 
 curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/main/linux/libreoffice-config/registrymodifications.xcu"
 
-sudo git clone https://github.com/Lioncat6/remap-util /chromebook-keys-remap
-cd /chromebook-keys-remap
-sudo bash remap-util.sh
-sudo rm -rf /chromebook-keys-remap
+curl https://raw.githubusercontent.com/Lioncat6/ChromebookMegascript/main/main.sh | bash
