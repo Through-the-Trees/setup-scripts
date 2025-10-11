@@ -7,7 +7,8 @@ sudo apt install curl
 yes | sudo apt install git-all
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo dpkg -i ./google-chrome-stable_current_amd64.deb
+sudo rm -rf ./google-chrome-stable_current_amd64.deb
 
 sudo apt install libreoffice
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
