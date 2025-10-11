@@ -1,12 +1,7 @@
 #! /usr/bin/env bash
 
-echo "Welcome to the Gallium Setup Script!"
-echo "If you have any issues with install please contact "
-echo "Hayden or Daniel for assistance, Thanks!"
-echo "---------------------------------------------------"
-
 # Check Wi-Fi connection status
-if nmcli -t -f WIFI g | grep -q "enabled"; then
+if nmcli -g STATE g == enabled; then
     if ! (nmcli -t -f ACTIVE,SSID dev wifi | grep -q "^yes"); then
         echo "Connect to wifi before running script."
         exit 1
@@ -26,12 +21,13 @@ sudo apt install firefox libreoffice vlc
 # Apply configurations
 
 # Libre Office default file formats
-USB_PATH=$(findmnt -n -o TARGET --target \
-	"$(sudo find /media/* -type d -name '\$OEM\$' -print -quit)")
+LIBRE_CONF_URL = "raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/main/software/registrymodifications.xcu"
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
-cp "$USB_PATH/\$OEM\$/\$1/TtT Setup/registrymodifications.xcu" "$CONFIG_PATH/registrymodifications.xcu"
+cd $CONFIG_PATH && curl $LIBRE_CONF_URL
 
 # Set firefox as default PDF & Browser
 xdg-settings set default-web-browser org.google.chrome.desktop
 xdg-mime default org.mozilla.firefox.desktop application/pdf
+
+echo "All Done"
