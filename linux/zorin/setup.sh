@@ -14,18 +14,19 @@ fi
 # sudo apt autoremove -y --purge brave-browser
 
 flatpak install -y flathub com.google.Chrome
-
 flatpak install -y flathub org.mozilla.firefox
-
 flatpak install -y flathub org.videolan.VLC
 
 # Apply configurations
 
 # Libre Office default file formats
-USB_PATH=$(findmnt -n -o TARGET --target \
-	"$(sudo find /media/* -type d -name '\$OEM\$' -print -quit)")
+#USB_PATH=$(findmnt -n -o TARGET --target \
+#	"$(sudo find /media/* -type d -name '\$OEM\$' -print -quit)")
+
+
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
+cd $CONFIG_PATH && curl 
 cp "$USB_PATH/\$OEM\$/\$1/TtT Setup/registrymodifications.xcu" "$CONFIG_PATH/registrymodifications.xcu"
 
 # Set VLC as default for common media types
