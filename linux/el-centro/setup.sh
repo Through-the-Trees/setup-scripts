@@ -12,3 +12,6 @@ sudo dnf install libreoffice -Y
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
 curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/main/linux/libreoffice-config/registrymodifications.xcu"
+
+# Enable area right-click
+gsettings set org.gnome.desktop.peripherals.touchpad click-method areas
