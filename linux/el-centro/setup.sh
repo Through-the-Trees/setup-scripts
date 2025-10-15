@@ -25,6 +25,9 @@ kwriteconfig6 --key AnimationDurationFactor 0
 # ~/.config/plasma-org.kde.plasma.desktop-appletsrc
 # [Containments][2][Applets][5][Configuration][General]
 
+# Install git
+sudo dnf install git-core
+
 # Keyboard setup
 echo "
 running cros-keyboard-map script by WeirdTreeThing...
