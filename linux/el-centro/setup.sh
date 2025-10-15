@@ -17,6 +17,9 @@ curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.
 # Disable window animations for performance optimization
 kwriteconfig6 --key AnimationDurationFactor 0
 
+# ~/.config/plasma-org.kde.plasma.desktop-appletsrc
+# [Containments][2][Applets][5][Configuration][General]
+
 # Keyboard setup
 echo "
 running cros-keyboard-map script by WeirdTreeThing...

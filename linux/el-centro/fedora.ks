@@ -16,20 +16,12 @@ keyboard --vckeymap=us --xlayouts='us'
 # System language
 lang en_US.UTF-8
 
-# Firewall configuration
-firewall --use-system-defaults
-# Network information
-network  --hostname=chromedora
-
-# OSTree setup
-ostreesetup --osname="fedora" --remote="fedora" --url="file:///ostree/repo" --ref="fedora/42/x86_64/onyx" --nogpg
-
 # Run the Setup Agent on first boot
 firstboot --enable
 
 # Generated using Blivet version 3.12.1
 ignoredisk --only-use=mmcblk0
-autopart --type=btrfs
+autopart
 # Partition clearing information
 clearpart --all --initlabel
 
@@ -40,15 +32,15 @@ timezone America/New_York --utc
 rootpw --lock
 user --groups=wheel --name=user --password=$y$j9T$sXtede5NuJBxYAZ/OEdZAo2Z$.g7xjN8uGx9uWZp.ioc70crrYrqAcq13/EQX6W6H6x6 --iscrypted --gecos="User"
 
-# Package Installations
-%packages --nobase
-    # Install all core packages
-    @core
+# # Package Installations
+# %packages --nobase
+#     # Install all core packages
+#     @core
 
-    # Browsers
-    firefox
-    chrome-stable
+#     # Browsers
+#     # firefox
+#     google-chrome-stable
 
-    # Office Suite
-    libreoffice
-%end
+#     # Office Suite
+#     libreoffice
+# %end
