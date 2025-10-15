@@ -28,11 +28,3 @@ kwriteconfig6 --key AnimationDurationFactor 0
 # Install git
 sudo dnf install git-core
 
-# Keyboard setup
-echo "
-running cros-keyboard-map script by WeirdTreeThing...
-(https://github.com/WeirdTreeThing/cros-keyboard-map)
-"
-sudo git clone https://github.com/WeirdTreeThing/cros-keyboard-map ~/keyd-chromebook
-sudo bash ~/keyd-chromebook/install.sh
-sudo rm -rf ~/keyd-chromebook
