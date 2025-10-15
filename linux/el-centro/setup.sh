@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update base packages
-sudo apt update && sudo apt upgrade
+sudo dnf update && sudno dnf upgrade
 
 # Install Chrome
 # wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
