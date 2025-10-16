@@ -5,13 +5,13 @@ kwriteconfig6 --key AnimationDurationFactor 0
 
 # Install Chrome in Fedora
 echo "Installing Google Chrome..."
-sudo dnf install fedora-workstation-repositories -Y
+sudo dnf install fedora-workstation-repositories -y
 sudo dnf config-manager setopt google-chrome.enabled=1
-sudo dnf install google-chrome-stable -Y
+sudo dnf install google-chrome-stable -y
 
 # Install Libre office and copy registrymodifications.xcu
 echo "Installing Libre Office..."
-sudo dnf install libreoffice -Y
+sudo dnf install libreoffice -y
 echo "Configuring Libre Office..."
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
@@ -21,7 +21,7 @@ curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.
 # [Containments][2][Applets][5][Configuration][General]
 
 # Background
-path_to_wallpaper = '/usr/share/wallpapers/Altai'                            # The path to the wallpaper.
+path_to_wallpaper = '/usr/share/wallpapers/Altai'                  # The path to the wallpaper.
 kwriteconfig5                                                    \ # The configuration tool.
   --file "$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc" \ # The path to the configuration file.
     --group 'Containments'                                       \
