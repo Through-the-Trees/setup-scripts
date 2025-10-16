@@ -21,7 +21,7 @@ curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.
 # [Containments][2][Applets][5][Configuration][General]
 
 # Background
-path_to_wallpaper = '/usr/share/wallpapers/Altai'                  # The path to the wallpaper.
+path_to_wallpaper='/usr/share/wallpapers/Altai'                  # The path to the wallpaper.
 kwriteconfig5 --file "$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' "$path_to_wallpaper"
 
 # Rename device
