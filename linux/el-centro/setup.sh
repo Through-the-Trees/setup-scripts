@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Update base packages
-sudo dnf update && sudno dnf upgrade
-
 # Install Chrome
 # wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # sudo dpkg -i ./google-chrome-stable_current_amd64.deb
@@ -19,9 +16,8 @@ CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
 curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/main/linux/libreoffice-config/registrymodifications.xcu"
 
-# Disable window animations for performance optimization
-kwriteconfig6 --key AnimationDurationFactor 0
-
 # ~/.config/plasma-org.kde.plasma.desktop-appletsrc
 # [Containments][2][Applets][5][Configuration][General]
 
+# Update base packages
+sudo dnf update && sudno dnf upgrade
