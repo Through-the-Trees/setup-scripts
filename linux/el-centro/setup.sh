@@ -3,11 +3,14 @@
 # Disable window animations for performance optimization
 kwriteconfig6 --key AnimationDurationFactor 0
 
-# Install Chrome in Fedora
+# Install Chrome
 echo "Installing Google Chrome..."
 sudo dnf install fedora-workstation-repositories -y
 sudo dnf config-manager setopt google-chrome.enabled=1
 sudo dnf install google-chrome-stable -y
+
+# Install git (prerequisite for key re-mapping script)
+sudo dnf install git-core -y
 
 # Install Libre office and copy registrymodifications.xcu
 # echo "Installing Libre Office..."
