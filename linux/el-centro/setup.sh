@@ -22,14 +22,7 @@ curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.
 
 # Background
 path_to_wallpaper = '/usr/share/wallpapers/Altai'                  # The path to the wallpaper.
-kwriteconfig5                                                    \ # The configuration tool.
-  --file "$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc" \ # The path to the configuration file.
-    --group 'Containments'                                       \
-      --group '1'                                                \
-        --group 'Wallpaper'                                      \ # This can, alternatively, be a colour.
-          --group 'org.kde.image'                                \
-            --group 'General'                                    \
-              --key 'Image' "$path_to_wallpaper"                   # The key which contains the path to the wallpaper.
+kwriteconfig5 --file "$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' "$path_to_wallpaper"
 
 # Rename device
 read -p "Enter device asset tag: " asset
