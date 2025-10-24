@@ -65,3 +65,6 @@ fi
 #     echo "Enabling touch bottom-right to right click..."
 #     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
 # fi
+
+read -n 1 -s -r -p "Press any key to continue..."
+echo
