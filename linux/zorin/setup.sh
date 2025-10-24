@@ -43,3 +43,16 @@ gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'co
 echo "Changing super key behavior..."
 gsettings set org.gnome.mutter overlay-key ''
 gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
+
+# Battery %
+gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+# Trackpad
+read -p "Does your maching have buttons under the touchpad? [y/n]: " answer
+if [[ "$answer" == "Y" ]]; then
+    echo "Disabling touch bottom-right to right click..."
+    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
+else
+    echo "Enabling touch bottom-right to right click..."
+    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
+fi
