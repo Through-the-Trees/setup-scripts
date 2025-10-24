@@ -50,11 +50,13 @@ gsettings set org.gnome.desktop.interface show-battery-percentage true
 # Trackpad
 
 # Test
-read -n 1 -r -p "Continue? [y/N] " key
+read -n 1 -r -p "Does your laptop have buttons below the touchpad? [y/N] " key
 if [[ $key =~ [yY] ]]; then
-  echo "yes"
+    echo "Disabling touch bottom-right to right click..."
+    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
 else
-  echo "no"
+    echo "Enabling touch bottom-right to right click..."
+    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
 fi
 
 # read -r -p "Does your maching have buttons under the touchpad? [y/n]: " answer
