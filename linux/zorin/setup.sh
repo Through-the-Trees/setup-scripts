@@ -48,11 +48,21 @@ gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 
 # Trackpad
-read -r -p "Does your maching have buttons under the touchpad? [y/n]: " answer
-if [[ "$answer" = "y" ]]; then
-    echo "Disabling touch bottom-right to right click..."
-    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
+
+# Test
+read -n 1 -r -p "Continue? [y/N] " key
+echo
+if [[ $key =~ [yY] ]]; then
+  echo "yes"
 else
-    echo "Enabling touch bottom-right to right click..."
-    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
+  echo "no"
 fi
+
+# read -r -p "Does your maching have buttons under the touchpad? [y/n]: " answer
+# if [[ "$answer" = "y" ]]; then
+#     echo "Disabling touch bottom-right to right click..."
+#     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
+# else
+#     echo "Enabling touch bottom-right to right click..."
+#     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
+# fi
