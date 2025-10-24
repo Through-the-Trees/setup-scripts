@@ -56,7 +56,7 @@ if [[ $key =~ [yY] ]]; then
     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
 else
     echo "Enabling touch bottom-right to right click..."
-    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
+    gsettings set org.gnome.desktop.peripherals.touchpad click-method 'areas'
 fi
 
 # read -r -p "Does your maching have buttons under the touchpad? [y/n]: " answer
