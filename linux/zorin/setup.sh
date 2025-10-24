@@ -51,7 +51,6 @@ gsettings set org.gnome.desktop.interface show-battery-percentage true
 
 # Test
 read -n 1 -r -p "Continue? [y/N] " key
-echo
 if [[ $key =~ [yY] ]]; then
   echo "yes"
 else
