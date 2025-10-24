@@ -38,3 +38,8 @@ gsettings set org.gnome.desktop.session idle-delay 0
 # Pin apps to taskbar
 echo "Pinning apps to taskbar..."
 gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'com.google.Chrome.desktop', 'org.gnome.Nautilus.desktop', 'libreoffice-startcenter.desktop']"
+
+# Disable overlay and enable Zorin Menu for super key
+echo "Changing super key behavior..."
+gsettings set org.gnome.mutter overlay-key ''
+gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
