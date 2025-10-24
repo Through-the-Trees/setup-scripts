@@ -30,43 +30,27 @@ echo "setting default browser..."
 xdg-settings set default-web-browser org.mozilla.firefox.desktop
 xdg-mime default org.mozilla.firefox.desktop application/pdf
 
+echo "Configuring GNOME..."
 # Set power settings to keep screen on
-echo "Adjusting power settings for shop display..."
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 gsettings set org.gnome.desktop.session idle-delay 0
-
 # Pin apps to taskbar
-echo "Pinning apps to taskbar..."
 gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'com.google.Chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'libreoffice-startcenter.desktop']"
-
 # Disable overlay and enable Zorin Menu for super key
 echo "Changing super key behavior..."
 gsettings set org.gnome.mutter overlay-key ''
 gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
-
 # Battery %
 gsettings set org.gnome.desktop.interface show-battery-percentage true
-
 # Trackpad
-
-# Test
 read -n 1 -r -p "Does your laptop have buttons below the touchpad? [y/N] " key
 if [[ $key =~ [yY] ]]; then
-    echo "Disabling touch bottom-right to right click..."
+    echo "\nDisabling touch bottom-right to right click..."
     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
 else
-    echo "Enabling touch bottom-right to right click..."
+    echo "\nEnabling touch bottom-right to right click..."
     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'areas'
 fi
-
-# read -r -p "Does your maching have buttons under the touchpad? [y/n]: " answer
-# if [[ "$answer" = "y" ]]; then
-#     echo "Disabling touch bottom-right to right click..."
-#     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
-# else
-#     echo "Enabling touch bottom-right to right click..."
-#     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'area'
-# fi
 
 read -n 1 -s -r -p "Press any key to continue..."
 echo
