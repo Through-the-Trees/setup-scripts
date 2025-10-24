@@ -38,7 +38,6 @@ gsettings set org.gnome.desktop.session idle-delay 0
 gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'com.google.Chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'libreoffice-startcenter.desktop']"
 # Disable overlay and enable Zorin Menu for super key
 echo "Changing super key behavior..."
-gsettings set org.gnome.mutter overlay-key ''
 gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
 # Battery %
 gsettings set org.gnome.desktop.interface show-battery-percentage true
