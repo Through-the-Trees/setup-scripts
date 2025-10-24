@@ -15,5 +15,5 @@ See [Google Drive](https://drive.google.com/drive/folders/1d_S3faZrwhpUiTw1B-DxL
 # Usage
 
 ```bash
-curl https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/refs/heads/main/{windows|linux|macos}/{script}.sh | bash
+curl https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/{windows|linux|macos}/{script}.sh | bash
 ```
