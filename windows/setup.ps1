@@ -41,9 +41,9 @@ $tmp | Remove-Item
 
 echo "Configuring software..."
 # -- Replace LibreOffice configuration file for default file extensions (.docx, .pptx, .xlsx)
-$libre_config_dir = "$env:APPDATA/LibreOffice/4/user/registrymodifications.xcu"
+$libre_config_dir = "$env:APPDATA/LibreOffice/4/user"
 if (-not (Test-Path $libre_config_dir)) { New-Item -ItemType Directory -Path $libre_config_dir }
-Invoke-WebRequest -OutFile $libre_config_dir "$remote/libreoffice-config/registrymodifications.xcu"
+Invoke-WebRequest -OutFile "$libre_config_dir/registrymodifications.xcu" "$remote/libreoffice-config/registrymodifications.xcu"
 
 # Start the screensaver to signal end of script
 (Start-Process -FilePath $photos_screensaver)
