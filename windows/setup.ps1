@@ -27,22 +27,20 @@ echo "Disabling autorun..."
 Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/AutoplayHandlers" -Name "DisableAutoplay" -Value 1 -Type DWord -Force
 
 echo "Enabling file extensions..."
-# -- Show file extensions
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
+Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced" -Name "HideFileExt" -Value 0
 
 echo "Setting time zone..."
-# -- Set time zone
 Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
-# -- Install software (VLC, Libre Office, Firefox, Chrome via Ninite installer)
+# -- (VLC, Libre Office, Firefox, Chrome via Ninite installer)
 $tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } –PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
 Start-Process -FilePath $tmp -Wait
 $tmp | Remove-Item
 
 echo "Configuring software..."
-# -- Replace LibreOffice configuration file for default file extensions
+# -- Replace LibreOffice configuration file for default file extensions (.docx, .pptx, .xlsx)
 $libreConfigDir = "$env:APPDATA/LibreOffice/4/user/"
 if (-not (Test-Path $libreConfigDir)) { New-Item -ItemType Directory -Path $libreConfigDir }
 Invoke-WebRequest -OutFile $libreConfigDir "$remote/libreoffice-config/registrymodifications.xcu"
