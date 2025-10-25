@@ -48,7 +48,6 @@ echo "Configuring software..."
 $libreConfigDir = "$env:APPDATA/LibreOffice/4/user/"
 if (-not (Test-Path $libreConfigDir)) { New-Item -ItemType Directory -Path $libreConfigDir }
 Invoke-WebRequest -OutFile $libreConfigDir "$remote/"
-Copy-Item -Path "$chamber/libreoffice-config/registrymodifications.xcu" -Destination $libreConfigDir -Force
 
 # Start the screensaver immediately (optional)
 (Start-Process -FilePath $photosScreensaver)
