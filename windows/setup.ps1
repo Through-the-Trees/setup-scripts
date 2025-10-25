@@ -1,29 +1,19 @@
-# Find drive letter via "$OEM$" folder name
-# $driveLetter = Get-PSDrive -PSProvider FileSystem | ForEach-Object { if (Test-Path "$($_.Root)\`$OEM$") { $_.Root } } | Select-Object -First 1
-# $chamber = [System.IO.Path]::Combine($driveLetter, "`$OEM`$", "`$1", "TtT Setup")
-
-# echo "Chamber location: $chamber"
+$remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master"
 
 echo "Setting up screensaver & power settings..."
-# -- Copy images and select photo screensaver
-# $usbPath = [System.IO.Path]::Combine($chamber, "Saved Pictures")
-
+# Download pictures for screensaver
 $saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("MyPictures"), "Saved Pictures")
-
-# create temp with zip extension (or Expand will complain)
-$url = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/windows/screensaver-pictures.zip"
 $tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
-Invoke-WebRequest -OutFile $tmp $url
-$tmp | Expand-Archive -DestinationPath $saved_pictures -Force
-$tmp | Remove-Item
-
-exit
-
+Invoke-WebRequest -OutFile $tmp "$remote/windows/screensaver-pictures.zip"
 # Create the destination folder if it doesn't exist
 if (!(Test-Path -Path $computerPath)) { New-Item -Path $computerPath -ItemType Directory }
-# Copy images from USB to computer
-Copy-Item -Path "$usbPath\*" -Destination $computerPath -Recurse -Force
-
+$tmp | Expand-Archive -DestinationPath $saved_pictures -Force
+$tmp | Remove-Item
+# Set screensaver to Photos
+$photosScreensaver = "C:/Windows/System32/PhotoScreensaver.scr"
+Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "SCRNSAVE.EXE" -Value $photosScreensaver
+Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "ScresenSaveActive" -Value "1"
+Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "ScreenSaverIsSecure" -Value "0"
 # Set power plan to Balanced
 powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e
 # Set display timeout for AC power to never
@@ -33,23 +23,12 @@ powercfg /change standby-timeout-ac 0
 # Set disk timeout for AC power to never
 powercfg /change disk-timeout-ac 0
 
-# Set screensaver to Photos
-$photosScreensaver = "C:\Windows\System32\PhotoScreensaver.scr"
-
-# Registry keys for screensaver settings
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "SCRNSAVE.EXE" -Value $photosScreensaver
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "ScresenSaveActive" -Value "1"
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "ScreenSaverIsSecure" -Value "0"
-
 echo "Disabling autorun..."
-# Disable autorun popups
-
-# Disable AutoPlay
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" -Name "DisableAutoplay" -Value 1 -Type DWord -Force
+Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/AutoplayHandlers" -Name "DisableAutoplay" -Value 1 -Type DWord -Force
 
 echo "Enabling file extensions..."
 # -- Show file extensions
-reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f
+reg add HKCU/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced /v HideFileExt /t REG_DWORD /d 0 /f
 
 echo "Setting time zone..."
 # -- Set time zone
@@ -57,14 +36,19 @@ Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
 # -- Install Visual C++ prerequisite for Libre Office
-Start-Process -FilePath "$chamber\Software\VCPP.exe" -ArgumentList "/quiet /norestart" -Wait
+# Start-Process -FilePath "$chamber/Software/VCPP.exe" -ArgumentList "/quiet /norestart" -Wait
 # -- Install software (VLC, Libre Office, Firefox, Chrome via Ninite installer)
-Start-Process -FilePath "$chamber\Software\Ninite.exe" -Wait
+$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
+Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
+Start-Process -FilePath $tmp -Wait
+$tmp | Remove-Item
+
 echo "Configuring software..."
 # -- Replace LibreOffice configuration file for default file extensions
-$libreConfigDir = "$env:APPDATA\LibreOffice\4\user\"
+$libreConfigDir = "$env:APPDATA/LibreOffice/4/user/"
 if (-not (Test-Path $libreConfigDir)) { New-Item -ItemType Directory -Path $libreConfigDir }
-Copy-Item -Path "$chamber\registrymodifications.xcu" -Destination $libreConfigDir -Force
+Invoke-WebRequest -OutFile $libreConfigDir "$remote/"
+Copy-Item -Path "$chamber/libreoffice-config/registrymodifications.xcu" -Destination $libreConfigDir -Force
 
 # Start the screensaver immediately (optional)
 (Start-Process -FilePath $photosScreensaver)
