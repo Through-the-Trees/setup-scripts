@@ -35,8 +35,6 @@ echo "Setting time zone..."
 Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
-# -- Install Visual C++ prerequisite for Libre Office
-# Start-Process -FilePath "$chamber/Software/VCPP.exe" -ArgumentList "/quiet /norestart" -Wait
 # -- Install software (VLC, Libre Office, Firefox, Chrome via Ninite installer)
 $tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
