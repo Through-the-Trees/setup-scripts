@@ -28,7 +28,7 @@ Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer
 
 echo "Enabling file extensions..."
 # -- Show file extensions
-reg add HKCU/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced /v HideFileExt /t REG_DWORD /d 0 /f
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
 
 echo "Setting time zone..."
 # -- Set time zone
