@@ -45,7 +45,7 @@ echo "Configuring software..."
 # -- Replace LibreOffice configuration file for default file extensions
 $libreConfigDir = "$env:APPDATA/LibreOffice/4/user/"
 if (-not (Test-Path $libreConfigDir)) { New-Item -ItemType Directory -Path $libreConfigDir }
-Invoke-WebRequest -OutFile $libreConfigDir "$remote/"
+Invoke-WebRequest -OutFile $libreConfigDir "$remote/libreoffice-config/registrymodifications.xcu"
 
 # Start the screensaver immediately (optional)
 (Start-Process -FilePath $photosScreensaver)
