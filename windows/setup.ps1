@@ -10,8 +10,8 @@ if (!(Test-Path -Path $saved_pictures)) { New-Item -Path $saved_pictures -ItemTy
 $tmp | Expand-Archive -DestinationPath $saved_pictures -Force
 $tmp | Remove-Item
 # Set screensaver to Photos
-$photosScreensaver = "C:/Windows/System32/PhotoScreensaver.scr"
-Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "SCRNSAVE.EXE" -Value $photosScreensaver
+$photos_screensaver = "C:/Windows/System32/PhotoScreensaver.scr"
+Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "SCRNSAVE.EXE" -Value $photos_screensaver
 Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "ScresenSaveActive" -Value "1"
 Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "ScreenSaverIsSecure" -Value "0"
 # Set power plan to Balanced
@@ -41,9 +41,9 @@ $tmp | Remove-Item
 
 echo "Configuring software..."
 # -- Replace LibreOffice configuration file for default file extensions (.docx, .pptx, .xlsx)
-$libreConfigDir = "$env:APPDATA/LibreOffice/4/user/"
-if (-not (Test-Path $libreConfigDir)) { New-Item -ItemType Directory -Path $libreConfigDir }
-Invoke-WebRequest -OutFile $libreConfigDir "$remote/libreoffice-config/registrymodifications.xcu"
+$libre_config_dir = "$env:APPDATA/LibreOffice/4/user/registrymodifications.xcu"
+if (-not (Test-Path $libre_config_dir)) { New-Item -ItemType Directory -Path $libre_config_dir }
+Invoke-WebRequest -OutFile $libre_config_dir "$remote/libreoffice-config/registrymodifications.xcu"
 
-# Start the screensaver immediately (optional)
-(Start-Process -FilePath $photosScreensaver)
+# Start the screensaver to signal end of script
+(Start-Process -FilePath $photos_screensaver)
