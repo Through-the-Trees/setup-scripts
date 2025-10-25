@@ -12,7 +12,7 @@ flatpak install -y flathub org.videolan.VLC
 echo "Configuring Libre Office..."
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
 mkdir -p "$CONFIG_PATH"
-curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/linux/libreoffice-config/registrymodifications.xcu"
+curl -o "$CONFIG_PATH/registrymodifications.xcu" "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/libreoffice-config/registrymodifications.xcu"
 
 # Set VLC as default for common media types
 echo "Configuring VLC..."
