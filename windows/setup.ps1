@@ -6,7 +6,7 @@ $saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath(
 $tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/screensaver-pictures.zip"
 # Create the destination folder if it doesn't exist
-if (!(Test-Path -Path $computerPath)) { New-Item -Path $computerPath -ItemType Directory }
+if (!(Test-Path -Path $saved_pictures)) { New-Item -Path $saved_pictures -ItemType Directory }
 $tmp | Expand-Archive -DestinationPath $saved_pictures -Force
 $tmp | Remove-Item
 # Set screensaver to Photos
@@ -36,7 +36,7 @@ Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
 # -- Install software (VLC, Libre Office, Firefox, Chrome via Ninite installer)
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
+$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } –PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
 Start-Process -FilePath $tmp -Wait
 $tmp | Remove-Item
