@@ -54,3 +54,8 @@ fi
 
 read -n 1 -s -r -p "Press any key to continue..."
 echo
+
+# Rename device
+read -p "Enter device asset tag: " asset
+sudo hostnamectl set-hostname "TtT-$asset"
+echo "Machine host name set to 'TtT-$asset'"
