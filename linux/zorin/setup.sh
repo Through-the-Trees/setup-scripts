@@ -43,7 +43,7 @@ gsettings set org.gnome.shell.extensions.zorin-menu super-hotkey true
 # Battery %
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 # Trackpad
-read -n 1 -r -p "Does your laptop have buttons below the touchpad? [y/N] " key
+read -n 1 -r -p "Does your laptop have separate buttons below the touchpad? [y/N] " key
 if [[ $key =~ [yY] ]]; then
     echo -e "\nDisabling touch bottom-right to right click..."
     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
