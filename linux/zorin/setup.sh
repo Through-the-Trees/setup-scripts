@@ -35,7 +35,7 @@ echo "Configuring GNOME..."
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 gsettings set org.gnome.desktop.session idle-delay 0
 # Pin apps to taskbar
-gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'com.google.Chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'libreoffice-startcenter.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'com.google.Chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop', 'libreoffice-impress.desktop', 'libreoffice-calc.desktop']"
 # Disable overlay and enable Zorin Menu for super key
 echo "Changing super key behavior..."
 # gsettings set org.gnome.mutter overlay-key ''
