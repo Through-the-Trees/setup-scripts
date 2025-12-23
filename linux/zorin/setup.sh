@@ -13,7 +13,6 @@ if [[ "$1" == "-gaming" ]]; then
     flatpak install -y flathub com.geeks3d.furmark
 fi
 
-
 # Apply configurations
 echo "Configuring Libre Office..."
 CONFIG_PATH="$HOME/.config/libreoffice/4/user"
