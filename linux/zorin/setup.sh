@@ -7,8 +7,12 @@ echo "Installing software..."
 flatpak install -y flathub com.google.Chrome
 flatpak install -y flathub org.mozilla.firefox
 flatpak install -y flathub org.videolan.VLC
-flatpak install -y flathub com.valvesoftware.Steam
-flatpak install -y flathub com.geeks3d.furmark
+# Install gaming-specific software if flag set
+if [[ "$1" == "-gaming" ]]; then
+    flatpak install -y flathub com.valvesoftware.Steam
+    flatpak install -y flathub com.geeks3d.furmark
+fi
+
 
 # Apply configurations
 echo "Configuring Libre Office..."
