@@ -4,9 +4,30 @@ echo "Removing Brave Browser..."
 sudo apt autoremove -y --purge brave-browser
 
 echo "Installing software..."
-flatpak install -y flathub com.google.Chrome
-flatpak install -y flathub org.mozilla.firefox
 flatpak install -y flathub org.videolan.VLC
+flatpak install -y flathub com.discordapp.Discord
+flatpak install -y flathub com.valvesoftware.Steam
+
+# Choose browser, set as default browser and PDF Viewer
+while [ -z "$browser" ]; do
+  read -n 1 -r -p "Would you prefer Mozilla Firefox or Google Chrome as your default browser and PDF viewer? Press 1 for Firefox, or 2 for Chrome." answer
+  case "$answer" in
+    1) browser="firefox" ;;
+    2) browser="chrome" ;;
+    *) echo "Please only press 1 or 2." ;;
+  esac
+done
+
+if [[ "$browser" == "firefox" ]]; then
+    flatpak install -y flathub org.mozilla.firefox
+    xdg-settings set default-web-browser org.mozilla.firefox.desktop
+    xdg-mime default org.mozilla.firefox.desktop application/pdf
+else
+    flatpak install -y flathub com.google.Chrome
+    xdg-settings set default-web-browser com.google.Chrome.desktop
+    xdg-mime default com.google.Chrome.desktop application/pdf
+fi
+
 
 # Apply configurations
 echo "Configuring Libre Office..."
@@ -24,11 +45,6 @@ xdg-mime default org.videolan.VLC.desktop audio/mpeg
 xdg-mime default org.videolan.VLC.desktop audio/x-wav
 xdg-mime default org.videolan.VLC.desktop audio/mp4
 xdg-mime default org.videolan.VLC.desktop application/ogg
-
-# Set firefox as default PDF & Browser
-echo "setting default browser..."
-xdg-settings set default-web-browser org.mozilla.firefox.desktop
-xdg-mime default org.mozilla.firefox.desktop application/pdf
 
 echo "Configuring GNOME..."
 # Set power settings to keep screen on
