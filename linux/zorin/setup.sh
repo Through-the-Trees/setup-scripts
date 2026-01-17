@@ -57,10 +57,5 @@ else
     gsettings set org.gnome.desktop.peripherals.touchpad click-method 'areas'
 fi
 
-# Rename device
-read -p "Enter device asset tag: " asset
-sudo hostnamectl set-hostname "TtT-$asset"
-echo "Machine host name set to 'TtT-$asset'"
-
 read -n 1 -s -r -p "Press any key to continue..."
 echo
