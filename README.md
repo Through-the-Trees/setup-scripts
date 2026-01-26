@@ -6,6 +6,7 @@ See [Google Drive](https://drive.google.com/drive/folders/1d_S3faZrwhpUiTw1B-DxL
 
 ## Windows
 ### /windows/setup.ps1
+- Check Windows 11 compatibility using Microsoft's "[HWReadinessScript](https://aka.ms/HWReadinessScript)"
 - Set up photo screen saver & configure power settings to keep screen on when plugged in for in-store display
 - Disable autorun for end user security & to reduce popups when plugging in flash drives
 - Show file extensions for end user security
