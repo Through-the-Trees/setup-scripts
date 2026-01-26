@@ -1,9 +1,23 @@
 $remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master"
 
+echo "Checking Windows 11 compatibility..."
+$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'ps1' } -PassThru
+Invoke-WebRequest "https://aka.ms/HWReadinessScript" -OutFile $tmp.FullName
+$hw_info = (& $tmp.FullName) | Out-String | ConvertFrom-Json
+# Create WshShell object for popup window
+$wshell = New-Object -ComObject Wscript.Shell 
+if ($hw_info.returnResult -eq "CAPABLE") {
+    echo "This system meets Microsoft's minimum requirements for Windows 11."
+}
+else {
+    $hw_failure_log = $hw_info.logging.Replace(';', "`n`n")
+    $wshell.Popup("This system does not meet Microsoft's minimum requirements for Windows 11!`n`n"+$hw_failure_log,0,"Not Windows 11 Compatible!",0x0)
+}
+
 echo "Setting up screensaver & power settings..."
 # Download pictures for screensaver
 $saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("MyPictures"), "Saved Pictures")
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } –PassThru
+$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } -PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/screensaver-pictures.zip"
 # Create the destination folder if it doesn't exist
 if (!(Test-Path -Path $saved_pictures)) { New-Item -Path $saved_pictures -ItemType Directory }
@@ -34,9 +48,9 @@ Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
 # -- (VLC, Libre Office, Firefox, Chrome via Ninite installer)
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } –PassThru
+$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } -PassThru
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
-Start-Process -FilePath $tmp -Wait
+Start-Process -FilePath $tmp -WindowStyle Normal -Wait
 $tmp | Remove-Item
 
 echo "Configuring software..."
