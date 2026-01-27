@@ -315,7 +315,9 @@ Set-ItemProperty -LiteralPath $key -Name 'ConfigureStartPins' -Value $json -Type
 &lt;/LayoutModificationTemplate&gt;
 		</File>
 		<File path="C:\Windows\Setup\Scripts\unattend-01.cmd">
-powershell.exe -WindowStyle Normal -NoProfile -ExecutionPolicy Bypass -Command "&amp;amp; { $url = 'https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/main/windows/setup.ps1'; iwr -Uri $url -UseBasicParsing | iex }"
+@echo off
+set "URL=https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/windows/setup.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "iex (Invoke-WebRequest -UseBasicParsing -Uri '%URL%').Content"
 		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
