@@ -88,6 +88,11 @@
 			<FirstLogonCommands>
 				<SynchronousCommand wcm:action="add">
 					<Order>1</Order>
+					<CommandLine>powershell.exe -WindowStyle Normal -NoProfile -ExecutionPolicy Bypass -Command "&amp; { $url = 'https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/main/windows/setup.ps1'; iwr -Uri $url -UseBasicParsing | iex }"</CommandLine>
+				</SynchronousCommand>
+			</FirstLogonCommands>
+				<SynchronousCommand wcm:action="add">
+					<Order>2</Order>
 					<CommandLine>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -File "C:\Windows\Setup\Scripts\FirstLogon.ps1"</CommandLine>
 				</SynchronousCommand>
 			</FirstLogonCommands>
@@ -314,11 +319,6 @@ Set-ItemProperty -LiteralPath $key -Name 'ConfigureStartPins' -Value $json -Type
 	&lt;/DefaultLayoutOverride&gt;
 &lt;/LayoutModificationTemplate&gt;
 		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-01.cmd">
-@echo off
-set "URL=https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master/windows/setup.ps1"
-powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "iex (Invoke-WebRequest -UseBasicParsing -Uri '%URL%').Content"
-		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
 	{
@@ -495,9 +495,6 @@ $scripts = @(
 	};
 	{
 		cmd.exe /c "rmdir C:\Windows.old";
-	};
-	{
-		C:\Windows\Setup\Scripts\unattend-01.cmd;
 	};
 	{
 		Remove-Item -LiteralPath @(
