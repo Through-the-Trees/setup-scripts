@@ -2,10 +2,10 @@
     "version": 1,
     "fixedOrder": true,
     "pinnedList": [
-        { "desktopAppId": "Microsoft.Windows.Explorer" }
+        { "desktopAppId": "Microsoft.Windows.Explorer_8wekyb3d8bbwe!App" }
     ],
     "primaryPinnedTaskbar": [
         { "desktopAppId": "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel" },
-        { "desktopAppId": "Microsoft.Windows.Explorer" }
+        { "desktopAppId": "Microsoft.Windows.Explorer_8wekyb3d8bbwe!App" }
     ]
 }
