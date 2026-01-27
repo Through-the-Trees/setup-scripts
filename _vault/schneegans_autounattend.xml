@@ -90,7 +90,6 @@
 					<Order>1</Order>
 					<CommandLine>powershell.exe -WindowStyle Normal -NoProfile -ExecutionPolicy Bypass -Command "&amp; { $url = 'https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/main/windows/setup.ps1'; iwr -Uri $url -UseBasicParsing | iex }"</CommandLine>
 				</SynchronousCommand>
-			</FirstLogonCommands>
 				<SynchronousCommand wcm:action="add">
 					<Order>2</Order>
 					<CommandLine>powershell.exe -WindowStyle "Normal" -ExecutionPolicy "Unrestricted" -NoProfile -File "C:\Windows\Setup\Scripts\FirstLogon.ps1"</CommandLine>
