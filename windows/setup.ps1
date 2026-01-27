@@ -7,8 +7,9 @@ $remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/mai
 
 echo "Checking Windows 11 compatibility..."
 $tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).ps1"
-Invoke-WebRequest "https://aka.ms/HWReadinessScript" -OutFile $tmp.FullName
-$hw_info = (& $tmp.FullName) | Out-String | ConvertFrom-Json
+Invoke-WebRequest "https://aka.ms/HWReadinessScript" -OutFile $tmp
+Unblock-File -Path $tmp
+$hw_info = (& $tmp) | Out-String | ConvertFrom-Json
 # Create WshShell object for popup window
 $wshell = New-Object -ComObject Wscript.Shell 
 if ($hw_info.returnResult -eq "CAPABLE") {
@@ -21,13 +22,14 @@ else {
 
 echo "Setting up screensaver & power settings..."
 # Download pictures for screensaver
-$saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("MyPictures"), "Saved Pictures")
 $tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).zip"
 Invoke-WebRequest -OutFile $tmp "$remote/windows/screensaver-pictures.zip"
+Unblock-File -Path $tmp
 # Create the destination folder if it doesn't exist
+$saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("MyPictures"), "Saved Pictures")
 if (!(Test-Path -Path $saved_pictures)) { New-Item -Path $saved_pictures -ItemType Directory }
-$tmp | Expand-Archive -DestinationPath $saved_pictures -Force
-$tmp | Remove-Item
+Expand-Archive -Path $tmp -DestinationPath $saved_pictures -Force
+Remove-Item $tmp
 # Set screensaver to Photos
 $photos_screensaver = "C:/Windows/System32/PhotoScreensaver.scr"
 Set-ItemProperty -Path "HKCU:/Control Panel/Desktop" -Name "SCRNSAVE.EXE" -Value $photos_screensaver
@@ -59,10 +61,12 @@ echo "Installing software..."
 # -- (VLC, Libre Office, Firefox, Chrome via Ninite installer)
 $tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).exe"
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
+Unblock-File -Path $tmp
 $installer = Start-Process -FilePath $tmp -WindowStyle Normal -PassThru
 Start-Sleep -Seconds 3
 (New-Object -Com WScript.Shell).AppActivate($installer.Id)
-$tmp | Remove-Item
+$installer | Wait-Process
+Remove-Item $tmp
 
 echo "Configuring software..."
 # -- Replace LibreOffice configuration file for default file extensions (.docx, .pptx, .xlsx)
