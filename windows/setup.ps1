@@ -1,9 +1,10 @@
-# if(!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
-#     Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList "-File `"$($MyInvocation.MyCommand.Path)`"  `"$($MyInvocation.MyCommand.UnboundArguments)`""
-#     Exit
-# }
-
 $remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/main"
+# Check for Admin rights; if not found, re-launch as Admin
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    $argList = "-NoProfile -ExecutionPolicy Bypass -Command `"iex (iwr -UseBasicParsing -Uri '$remote/windows/setup.ps1').Content`""
+    Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $argList
+    Exit
+}
 
 echo "Checking Windows 11 compatibility..."
 $tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).ps1"
