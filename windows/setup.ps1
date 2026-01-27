@@ -65,7 +65,7 @@ Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
 Unblock-File -Path $tmp
 $installer = Start-Process -FilePath $tmp -WindowStyle Normal -PassThru
 Start-Sleep -Seconds 3
-(New-Object -Com WScript.Shell).AppActivate($installer.Id)
+(New-Object -Com WScript.Shell).AppActivate($installer.Id) | Out-Null
 $installer | Wait-Process
 Remove-Item $tmp
 
