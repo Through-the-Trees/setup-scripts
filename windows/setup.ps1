@@ -3,10 +3,10 @@
 #     Exit
 # }
 
-$remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/master"
+$remote = "https://raw.githubusercontent.com/Through-the-Trees/setup-scripts/main"
 
 echo "Checking Windows 11 compatibility..."
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'ps1' } -PassThru
+$tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).ps1"
 Invoke-WebRequest "https://aka.ms/HWReadinessScript" -OutFile $tmp.FullName
 $hw_info = (& $tmp.FullName) | Out-String | ConvertFrom-Json
 # Create WshShell object for popup window
@@ -22,7 +22,7 @@ else {
 echo "Setting up screensaver & power settings..."
 # Download pictures for screensaver
 $saved_pictures = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("MyPictures"), "Saved Pictures")
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'zip' } -PassThru
+$tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).zip"
 Invoke-WebRequest -OutFile $tmp "$remote/windows/screensaver-pictures.zip"
 # Create the destination folder if it doesn't exist
 if (!(Test-Path -Path $saved_pictures)) { New-Item -Path $saved_pictures -ItemType Directory }
@@ -48,14 +48,20 @@ Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer
 echo "Enabling file extensions..."
 Set-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced" -Name "HideFileExt" -Value 0
 
+echo "Disabling Edge First Run Experience"
+if (-not (Test-Path "HKLM:\Software\Policies\Microsoft\Edge")) {New-Item -Path "HKLM:\Software\Policies\Microsoft\Edge" -Force | Out-Null}
+Set-ItemProperty "HKLM:\Software\Policies\Microsoft\Edge" "HideFirstRunExperience" 1 -Force
+
 echo "Setting time zone..."
 Set-TimeZone -Name "Eastern Standard Time"
 
 echo "Installing software..."
 # -- (VLC, Libre Office, Firefox, Chrome via Ninite installer)
-$tmp = New-TemporaryFile | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } -PassThru
+$tmp = Join-Path $env:TEMP "$([Guid]::NewGuid()).exe"
 Invoke-WebRequest -OutFile $tmp "$remote/windows/Ninite.exe"
-Start-Process -FilePath $tmp -WindowStyle Normal -Wait
+$installer = Start-Process -FilePath $tmp -WindowStyle Normal -PassThru
+Start-Sleep -Seconds 3
+(New-Object -Com WScript.Shell).AppActivate($installer.Id)
 $tmp | Remove-Item
 
 echo "Configuring software..."
