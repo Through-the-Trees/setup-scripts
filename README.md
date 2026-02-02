@@ -1,5 +1,5 @@
 # setup-scripts
-Central Repo for remote setup scripts
+Remote Setup and Action Scripts called by local scripts placed in Setup Drives
 
 # Documentation
 See [Google Drive](https://drive.google.com/drive/folders/1d_S3faZrwhpUiTw1B-DxLmTf3okOl1hV?usp=sharing) for up-to-date refurbishing documentation
