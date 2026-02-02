@@ -1,5 +1,5 @@
 # setup-scripts
-Remote Setup and Action Scripts called by local scripts placed in Setup Drives
+Remote setup scripts called by local scripts placed in "setup" drives
 
 # Documentation
 See [Google Drive](https://drive.google.com/drive/folders/1d_S3faZrwhpUiTw1B-DxLmTf3okOl1hV?usp=sharing) for up-to-date refurbishing documentation
